@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖优化</title>
+</head>
+<body>
+    请输入信息：<input type="text">
+    <script>
+    var processor = {  
+    timeoutId: null,
+    performProcessing: function() {
+    var days = new Date()
+    var a= days.getHours();
+    var b= days.getMonth();
+    var c= days.getSeconds();
+    var d= days.getMilliseconds();
+    console.log(a+'时'+b+'分'+c+'秒'+d+'毫秒');
+    },
+  	process: function() {
+  	  var that = this;
+      clearTimeout(that.timeoutId);    
+      that .timeoutId = setTimeout(function() {
+        that.performProcessing();
+      }, 500)                     //每隔500毫秒后执行，如果中间间隔没到五秒钟还在输入，那么这500毫秒将重新开始计算
+  	}
+  };
+  document.querySelector('input').oninput = function() {
+  	processor.process();
+  }
+    </script>
+</body>
+</html>
